@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <title>Document</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="robots" content="noindex, nofollow" />
+	<script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+      function setThemeClass() {
+        document.documentElement.className = Telegram.WebApp.colorScheme;
+      }
+      Telegram.WebApp.onEvent('themeChanged', setThemeClass);
+      setThemeClass();
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.1.2/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700,300">
+    <link rel="stylesheet" href="https://rawgit.com/marvelapp/devices.css/master/assets/devices.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="parent_container">
+        <section id="language_selection" class="hidden display-none" class="container" >
+            <h2 class="title">Choose language</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr">
+            </div>
+        </section>
+        <section id="auth_method_selection" class="hidden display-none vertical-center" class="container">
+            <input id="code_selection_button" type="button" class="btn telegram-color full-width" value="By code"/>
+            <br/>
+            <input id="password_selection_button" type="button" class="btn telegram-color full-width" value="By password"/>
+        </section>
+        <section id="auth_by_code" class="hidden display-none" class="container">
+            <h2></h2>
+            <input id="phone_number1" type="text" value="" placeholder="+12345678910" class="phone_input"/>
+            <br />
+            <input id="auth_code" type="number" value="" class="hidden styled-input display-none" placeholder="0000" max="9999" pattern="\d{4}"/>
+            <br />
+            <div id="code-auth-error"></div>
+        </section>
+        <section id="auth_by_password" class="hidden display-none" class="container">
+            <h2></h2>
+            <input id="phone_number2" type="text" value="" placeholder="+12345678910" class="phone_input"/>
+            <input id="password" type="password" value="" class="styled-input" placeholder="****"/>
+        </section>
+
+        <section id="auth_selection" class="hidden display-none" class="container">
+        </section>
+        <section id="main" class="text-align-center container hidden display-none">
+            <img class="company-logo" src="">
+            <div id="main-specialist-info">
+                <div id="main-specialist-wrapper">
+                    <img id="main-specialist-image" style="vertical-align:middle" src="">
+                    <span id="main-specialist-name" class="large-font">Name Surname</span>
+                </div>
+                <input id="select_specialist_button" type="button" class="btn telegram-color full-width" value="Select specialist"/>
+            </div>
+            <div id="main-datetime-info">
+                <div id="main-datetime-wrapper" class="large-font">No time selected</div>
+                <input id="select_datetime_button" type="button" class="btn telegram-color full-width" value="Select date and time"/>
+            </div>
+            <div id="main-service-info">
+                <div id="main-service-wrapper" class="large-font">No services selected</div>
+                <input id="select_services_button" type="button" class="btn telegram-color full-width" value="Select services"/>
+            </div>
+            <br/>
+            <div id="change_language_link" class="link">Change language</div>
+            <div id="log_out_link" class="link log-out-link display-none">Log out</div>
+            <div id="log_in_link" class="link log-in-link display-none">Sign in</div>
+        </section>
+        <section id="services" class="text-align-center container hidden display-none">
+            <h2>Select services</h2>
+            <div id="service_groups_list">
+                <div class="service_group">
+                    <h3>Group1</h3>
+                    <div class="service">
+                        <img class="service_image" src="">
+                        <h2 class="service_name">Wash cut</h2>
+                        <span class="service_description">Descriiption here</span>
+                        <br/>
+                        <input type="button" class="btn telegram-color full-width add-service-button" value="Add" data-service-id="0"/>
+                    </div>
+                </div>
+
+                <div class="service_group">
+                    <h3>Group2</h3>
+                    <div class="service">
+                        <img class="service_image" src="">
+                        <h2 class="service_name">Wash cut</h2>
+                        <span class="service_description">Descriiption here</span>
+                        <br/>
+                        <input type="button" class="btn telegram-color full-width add-service-button" value="Add" data-service-id="1"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="specialists" class="text-align-center container hidden display-none">
+            <h2>Choose specialist</h2>
+            <div id="specialists-list-wrapper">
+            </div>
+        </section>
+        <section id="datetime" class="text-align-center container hidden display-none">
+                <select id="date-select" class="styled-select">
+                    <option value="2023-10-10">2023-10-10</option>
+                    <option value="2023-10-11">2023-10-11</option>
+                </select>
+                <div id="no-slots-message" class="display-none"></div>
+                <select id="time-select" class="styled-select">
+                    <option value="2023-10-10">10:00</option>
+                    <option value="2023-10-11">10:00</option>
+                </select>
+        </section>
+    </div>
+    <section id="order-form" class="vertical-center container hidden display-none">
+        <h1 id="confirm-order-title">Confirm order</h1>
+        <div class="rounded-div">
+            <div id="book-name-label" class="input-label large-font">Name:</div>
+            <input id="book-name" type="text" class="styled-input" required />
+            <br />
+            <div id="book-phone-label" class="input-label large-font">Phone:</div>
+            <input id="book-phone" type="text" value="+" class="styled-input" required />
+            <br />
+            <div id="book-email-label" class="input-label large-font">Email:</div>
+            <input id="book-email" type="text" value="" class="styled-input" />
+            <br />
+            <div id="book-comment-label" class="input-label large-font">Comment:</div>
+            <input id="book-comment" type="text" value="" class="styled-input" />
+        </div>
+        <h1 id="order-details-title">Order details</h1>
+        <div class="rounded-div">
+            <div id="order-barber-info">
+                <img class="specialist-image" style="vertical-align:middle" src="">
+
+                <div class="large-font"> </div>
+            </div>
+            <div id="order-services-info">
+                <div id="order-service-info-span" class="large-font">Wash cut, $10</div>
+
+                <div id="order-datetime-info" class="large-font">2023-10-01</div>
+            </div>
+
+        </div>
+        <div id="order-errors" class="large-font">
+
+        </div>
+    </section>
+
+    <section id="my-orders" class="vertical-center container hidden display-none" style="height: 100%">
+        <h1 id="my-orders-title">My Orders</h1>
+        <div id="my-orders-wrapper">
+            <div class="rounded-div">
+                <div id="order-barber-info">
+                    <img class="specialist-image" style="vertical-align:middle" src="">
+
+                    <div class="large-font">Name Surname</div>
+                </div>
+                <div id="order-services-info">
+                    <div id="order-service-info-span" class="large-font">Wash cut, $10</div>
+
+                    <div id="order-datetime-info" class="large-font">2023-10-01</div>
+                </div>
+            </div>
+        </div>
+        <div id="order-errors" class="large-font">
+        </div>
+    </section>
+    <script src="./main.js"></script>
+</body>
+</html>
